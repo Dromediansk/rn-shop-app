@@ -1,29 +1,59 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+} from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
-const ProductItem = ({ imageUrl, title, price, onViewDetail, onAddToCart }) => (
-  <View style={styles.product}>
-    <View style={styles.imageContainer}>
-      <Image style={styles.image} source={{ uri: imageUrl }} />
-    </View>
-    <View style={styles.details}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
-    </View>
+const ProductItem = ({ imageUrl, title, price, onViewDetail, onAddToCart }) => {
+  let TouchableCmp = TouchableOpacity;
 
-    <View style={styles.actions}>
-      <Button
-        color={Colors.primary}
-        title="View details"
-        onPress={onViewDetail}
-      />
-      <Button color={Colors.primary} title="To cart" onPress={onAddToCart} />
+  if (Platform === "android" && Platform.Version >= 21) {
+    TouchableCmp = TouchableNativeFeedback;
+  }
+  return (
+    <View style={styles.product}>
+      <View style={styles.touchable}>
+        <TouchableCmp onPress={onViewDetail} useForeground>
+          <View>
+            <View style={styles.imageContainer}>
+              <Image style={styles.image} source={{ uri: imageUrl }} />
+            </View>
+            <View style={styles.details}>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.price}>${price.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.actions}>
+              <Button
+                color={Colors.primary}
+                title="View details"
+                onPress={onViewDetail}
+              />
+              <Button
+                color={Colors.primary}
+                title="To cart"
+                onPress={onAddToCart}
+              />
+            </View>
+          </View>
+        </TouchableCmp>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
+  touchable: {
+    overflow: "hidden",
+    borderRadius: 10,
+  },
   product: {
     shadowColor: "black",
     shadowOpacity: 0.26,
@@ -53,7 +83,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    marginVertical: 4,
+    marginVertical: 2,
+    fontFamily: "open-sans-bold",
   },
   price: {
     fontSize: 14,
