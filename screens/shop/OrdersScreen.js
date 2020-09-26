@@ -25,7 +25,7 @@ const OrdersScreen = () => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Your Orders",
+    title: "Your products",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item

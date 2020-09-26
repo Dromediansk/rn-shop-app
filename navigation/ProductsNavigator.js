@@ -8,14 +8,15 @@ import ProductsOverviewScreen, {
   screenOptions as productsOverviewScreenOptions,
 } from "../screens/shop/ProductsOverviewScreen";
 import { screenOptions as ordersScreenOptions } from "../screens/shop/OrdersScreen";
-import { screenOptions as AdminScreenOptions } from "../screens/shop/OrdersScreen";
+import { screenOptions as AdminScreenOptions } from "../screens/user/UserProductsScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import CartScreen from "../screens/shop/CartScreen";
 import { defaultNavigationOptions } from "../constants/defaultNavOptions";
 import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import UserProductsScreen from "../screens/shop/UserProductsScreen";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 
 const ProductsStackNavigator = createStackNavigator();
 
@@ -59,6 +60,11 @@ const AdminNavigator = () => {
       <AdminStackNavigator.Screen
         name="My Products"
         component={UserProductsScreen}
+        options={AdminScreenOptions}
+      />
+      <AdminStackNavigator.Screen
+        name="EditProduct"
+        component={EditProductScreen}
         options={AdminScreenOptions}
       />
     </AdminStackNavigator.Navigator>
