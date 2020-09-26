@@ -1,22 +1,23 @@
 import React from "react";
-import { FlatList, Platform } from "react-native";
+import { StyleSheet, FlatList, Platform } from "react-native";
 import { useSelector } from "react-redux";
+import ProductItem from "../../components/shop/ProductItem";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/ui/HeaderButton";
-import OrderItem from "../../components/shop/OrderItem";
 
-const OrdersScreen = () => {
-  const orders = useSelector((state) => state.orders.orders);
-
+const UserProductsScreen = () => {
+  const userProducts = useSelector((state) => state.products.userProducts);
   return (
     <FlatList
-      data={orders}
-      keyExtractor={(item) => item.id}
+      data={userProducts}
+      keyExtractor={(prod) => prod.id}
       renderItem={(itemData) => (
-        <OrderItem
-          items={itemData.item.items}
-          amount={itemData.item.totalAmount}
-          date={itemData.item.readableDate}
+        <ProductItem
+          imageUrl={itemData.item.imageUrl}
+          title={itemData.item.title}
+          price={itemData.item.price}
+          onViewDetail={() => {}}
+          onAddToCart={() => {}}
         />
       )}
     />
@@ -25,7 +26,7 @@ const OrdersScreen = () => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: "Your Orders",
+    headerTitle: "Your Products",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
@@ -40,4 +41,6 @@ export const screenOptions = (navData) => {
   };
 };
 
-export default OrdersScreen;
+const styles = StyleSheet.create({});
+
+export default UserProductsScreen;
